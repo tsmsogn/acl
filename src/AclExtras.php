@@ -303,8 +303,7 @@ class AclExtras
         // look at each controller
         $controllersNames = [];
         foreach ($controllers as $controller) {
-            $tmp = explode('/', $controller);
-            $controllerName = str_replace('Controller.php', '', array_pop($tmp));
+            $controllerName = $this->getControllerName($controller);
             // Always skip the App controller
             if ($controllerName == 'App') {
                 continue;
@@ -585,5 +584,17 @@ class AclExtras
     public function getPluginPrefixes()
     {
         return $this->pluginPrefixes;
+    }
+
+    /**
+     * Get the controller name
+     *
+     * @param $controller
+     * @return mixed
+     */
+    public function getControllerName($controller)
+    {
+        $tmp = explode('/', $controller);
+        return str_replace('Controller.php', '', array_pop($tmp));
     }
 }
